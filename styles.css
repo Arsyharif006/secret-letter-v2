@@ -1,0 +1,513 @@
+/* Main Styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 10px;
+    font-family: 'Times New Roman', serif;
+    box-sizing: border-box;
+}
+
+.letter-container {
+    width: 100%;
+    max-width: 800px;
+}
+
+.letter {
+    background-color: #f9f5e9;
+    background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4gIcSUNDX1BST0ZJTEUAAQEAAAIMbGNtcwIQAABtbnRyUkdCIFhZWiAH3AABABkAAwApADlhY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWxjbXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApkZXNjAAAA/AAAAF5jcHJ0AAABXAAAAAt3dHB0AAABaAAAABRia3B0AAABfAAAABRyWFlaAAABkAAAABRnWFlaAAABpAAAABRiWFlaAAABuAAAABRyVFJDAAABzAAAAEBnVFJDAAABzAAAAEBiVFJDAAABzAAAAEBkZXNjAAAAAAAAAANjMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAElYAABYWVogAAAAAAAA9tYAAQAAAADTLVhZWiAAAAAAAAADFgAAAzMAAAKkWFlaIAAAAAAAAG+iAAA49QAAA5BYWVogAAAAAAAAYpkAALeFAAAY2lhZWiAAAAAAAAAkoAAAD4QAALbPY3VydgAAAAAAAAAaAAAAywHJA2MFkghrC/YQPxVRGzQh8SmQMhg7kkYFUXdd7WtwegWJsZp8rGm/fdPD6TD////bAEMAAgEBAgEBAgICAgICAgIDBQMDAwMDBgQEAwUHBgcHBwYHBwgJCwkICAoIBwcKDQoKCwwMDAwHCQ4PDQwOCwwMDP/bAEMBAgICAwMDBgMDBgwIBwgMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIASwBLAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIDEQQFAwMEBAABAncAAQIDEQQFITEFEkFRBhNhcQcigZEIFDKhscHwCCNC0eHxFTNSYoJyY3KCkaKywgkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLD09TV1tfY2drh4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z');
+    background-size: cover;
+    padding: 60px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    color: #333;
+    position: relative;
+    border: 1px solid #d1c0a5;
+}
+
+/* Add vintage stains */
+.letter:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 30% 20%, rgba(184, 143, 86, 0.15) 0%, rgba(184, 143, 86, 0) 30%),
+        radial-gradient(circle at 80% 40%, rgba(184, 143, 86, 0.1) 0%, rgba(184, 143, 86, 0) 20%),
+        radial-gradient(circle at 40% 80%, rgba(184, 143, 86, 0.1) 0%, rgba(184, 143, 86, 0) 30%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Stamp overlay styles */
+.stamp-overlay {
+    position: absolute;
+    top: 50px;
+    right: 70px;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.stamp-overlay .stamp {
+    width: 200px;
+    height: 200px;
+    border: 5px solid rgba(94, 48, 35, 0.6);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-15deg);
+}
+
+.stamp-overlay .stamp-inner {
+    width: 180px;
+    height: 180px;
+    border: 2px solid rgba(94, 48, 35, 0.6);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stamp-overlay .stamp-text {
+    text-align: center;
+    color: rgba(94, 48, 35, 0.6);
+}
+
+.stamp-overlay .stamp-title {
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.stamp-overlay .stamp-date {
+    font-size: 18px;
+}
+
+.letter-content {
+    position: relative;
+    z-index: 3;
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+.letter-header {
+    text-align: right;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.letter-body {
+    margin-bottom: 50px;
+}
+
+.signature-area {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    flex-wrap: nowrap; /* Penting: jangan wrap ke bawah */
+}
+
+.your-signature, .her-signature {
+    text-align: center;
+    width: 45%;
+    min-width: 120px; /* Minimal width untuk menghindari tampilan yang aneh */
+}
+
+/* Fingerprint container styles */
+.fingerprint-container {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fingerprint-image {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 1;
+}
+
+.fingerprint-image.arya-fingerprint {
+    opacity: 0.7;
+    transform: rotate(-15deg);
+}
+
+.fingerprint-image.tata-fingerprint {
+    opacity: 0;
+    transform: rotate(15deg);
+}
+
+.fingerprint-image i {
+    font-size: 80px;
+    color: #5E3023;
+    opacity: 0.15;
+}
+
+.arya-fingerprint i {
+    color: #5E3023;
+}
+
+.tata-fingerprint i {
+    color: #8B4513;
+}
+
+.signature-image {
+    position: relative;
+    z-index: 2;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.signature-line {
+    border-top: 1px solid #333;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.signature-caption {
+    font-style: italic;
+    font-size: 14px;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #5E3023;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #5E3023;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-align: center;
+    margin: 10px auto;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #7D4435;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #f9f5eb;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #5E3023;
+}
+
+.modal-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #5E3023;
+}
+
+#signature-pad {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: block;
+    background-color: white;
+    touch-action: none;
+}
+
+.signature-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+/* Fingerprint scanner styles */
+.fingerprint-scanner {
+    width: 200px;
+    height: 200px;
+    background-color: #000;
+    border-radius: 10px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.scanner-light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-color: rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+    animation: scan 2s linear infinite;
+    opacity: 0;
+}
+
+@keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
+}
+
+.scan-text {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+}
+
+/* Google Material Icons Fingerprint styles */
+.fingerprint-icon {
+    font-size: 60px;
+    color: #5E3023;
+    opacity: 0.7;
+}
+
+#fingerprint-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Stamp modal styles */
+.stamp-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.stamp-modal-content .stamp {
+    width: 150px;
+    height: 150px;
+    border: 5px solid #5E3023;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-15deg);
+    opacity: 0;
+}
+
+.stamp-modal-content .stamp-inner {
+    width: 130px;
+    height: 130px;
+    border: 2px solid #5E3023;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stamp-modal-content .stamp-text {
+    text-align: center;
+    color: #5E3023;
+}
+
+.stamp-modal-content .stamp-title {
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.stamp-modal-content .stamp-date {
+    font-size: 14px;
+}
+
+@keyframes stampImpression {
+    0% {
+        transform: rotate(-15deg) scale(1.5) translateY(-50px);
+        opacity: 0;
+    }
+    50% {
+        transform: rotate(-15deg) scale(0.9);
+        opacity: 1;
+    }
+    70% {
+        transform: rotate(-15deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(-15deg) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Animation for stamp on letter */
+@keyframes stampAppear {
+    0% {
+        opacity: 0;
+        transform: scale(1.5) rotate(-15deg);
+    }
+    70% {
+        opacity: 0.8;
+        transform: scale(0.9) rotate(-15deg);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scale(1) rotate(-15deg);
+    }
+}
+
+/* Central verification styles */
+.central-verification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+}
+
+@keyframes fingerprintAppear {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 0.7; transform: scale(1); }
+}
+
+/* Animation classes */
+.signature-animation {
+    animation: flyIn 1s ease-out forwards;
+    transform-origin: center;
+    opacity: 0;
+}
+
+@keyframes flyIn {
+    0% {
+        transform: translate(200px, -100px) scale(0.5);
+        opacity: 0;
+    }
+    70% {
+        transform: translate(0, 0) scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .letter {
+        padding: 20px;
+    }
+    
+    .letter-content {
+        font-size: 16px;
+    }
+    
+    h1 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .stamp-overlay {
+        top: 20px;
+        right: 30px;
+    }
+    
+    .stamp-overlay .stamp {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .stamp-overlay .stamp-inner {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .stamp-overlay .stamp-title {
+        font-size: 20px;
+    }
+    
+    .stamp-overlay .stamp-date {
+        font-size: 14px;
+    }
+    
+    /* Penting: Pertahankan layout kanan-kiri untuk tanda tangan di mobile */
+    .signature-area {
+        flex-direction: row; /* Tetap menggunakan row, bukan column */
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+    
+    .your-signature, .her-signature {
+        width: 48%; /* Sedikit lebih lebar agar tetap bisa fit */
+        margin-bottom: 0;
+        max-width: 140px;
+    }
+    
+    .signature-line {
+        font-size: 14px;
+    }
+    
+    .signature-caption {
+        font-size: 12px;
+    }
+    
+    /* Sesuaikan ukuran tanda tangan pada mobile */
+    .signature-image img {
+        max-height: 80px;
+    }
+}
+
+@media print {
+    body {
+        background: none;
+        padding: 0;
+    }
+    
+    .letter {
+        box-shadow: none;
+    }
+    
+    .btn, .modal {
+        display: none !important;
+    }
+}
