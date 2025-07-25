@@ -1,150 +1,620 @@
 <!DOCTYPE html>
-<html lang="id">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Cinta Vintage</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Secret Letter</title>
+    <style>
+/* Pink & White Love Theme Colors - Mobile Optimized */
+:root {
+    --color-env: #f3f3f3;
+    --color-env2: #F8F8F8;
+    --color-flap: #FFB6C1;
+    --color-bg: linear-gradient(135deg, #FFF0F5 0%, #FFE1E6 50%, #FFC0CB 100%);
+    --color-heart: #FF69B4;
+    --color-heart-alt: #FFB6C1;
+    
+    --env-border-radius: 8px;
+    --env-width: 280px;
+    --env-height: 180px;
+    --heart-width: 30px;
+}
 
-    <!-- Google Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--color-bg);
+    min-height: 100vh;
+    font-family: 'Georgia', serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+    touch-action: manipulation;
+}
+
+.envelope-wrapper {
+    height: calc(var(--env-height) + 250px);
+    perspective: 1000px;
+    position: relative;
+}
+
+#envelope {
+    position: relative;
+    width: var(--env-width);
+    height: var(--env-height);
+    border-bottom-left-radius: var(--env-border-radius);
+    border-bottom-right-radius: var(--env-border-radius);
+    margin: 120px auto 0;
+    background: linear-gradient(135deg, var(--color-flap) 0%, var(--color-env) 100%);
+    box-shadow: 0 8px 30px rgba(255, 182, 193, 0.4);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    border: 2px solid #FFB6C1;
+}
+
+#envelope:active {
+    transform: scale(0.98);
+}
+
+.front { 
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 3;
+}
+
+.flap {
+    border-left: calc(var(--env-width) / 2) solid transparent;
+    border-right: calc(var(--env-width) / 2) solid transparent;
+    border-bottom: calc(var(--env-height) / 2 - 10px) solid transparent;
+    border-top: calc(var(--env-height) / 2 + 10px) solid var(--color-flap);
+    transform-origin: top;
+    transition: transform 0.6s ease, z-index 0.8s;
+}
+
+.pocket {
+    border-left: calc(var(--env-width) / 2) solid var(--color-env);
+    border-right: calc(var(--env-width) / 2) solid var(--color-env);
+    border-bottom: calc(var(--env-height) / 2) solid var(--color-env2);
+    border-top: calc(var(--env-height) / 2) solid transparent;
+    border-bottom-left-radius: var(--env-border-radius);
+    border-bottom-right-radius: var(--env-border-radius);
+}
+
+.letter {
+    position: relative;
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFFAFD 100%);
+    width: 90%;
+    margin: 0 auto;
+    height: 90%;
+    top: 5%;
+    border-radius: var(--env-border-radius);
+    box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    transition: transform 0.6s ease, z-index 1s;
+    overflow: hidden;
+    cursor: pointer;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+    border: 1px solid #FFE1E6;
+}
+
+.letter-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+}
+
+.preview-text {
+    font-size: 16px;
+    color: #FF69B4;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-family: 'Brush Script MT', cursive;
+}
+
+.swipe-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FFB6C1;
+    font-size: 11px;
+    animation: pulse 2s infinite;
+}
+
+.arrow-up {
+    font-size: 20px;
+    margin-bottom: 5px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-8px);
+    }
+    60% {
+        transform: translateY(-4px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Animation States */
+.open .flap {
+    transform: rotateX(180deg);
+    transition: transform 0.6s ease, z-index 0.8s;
+    z-index: 1;
+}
+
+.close .flap {
+    transform: rotateX(0deg);
+    transition: transform 0.6s 0.8s ease, z-index 1.2s;
+    z-index: 5;
+}
+
+.close .letter {
+    transform: translateY(0px); 
+    transition: transform 0.6s ease, z-index 1.2s;
+    z-index: 1;
+}
+
+.open .letter {
+    transform: translateY(calc(-1 * var(--env-height) / 2.5));
+    transition: transform 0.6s 0.8s ease, z-index 0.8s;
+    z-index: 2;
+}
+
+/* Hearts Animation */
+.hearts {
+    position: absolute;
+    top: calc(var(--env-height) / 2);
+    left: 0;
+    right: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    bottom: 0;
+    width: var(--heart-width);
+    height: calc(var(--heart-width) * 0.8);
+}
+
+.heart:before,
+.heart:after {
+    position: absolute;
+    content: "";
+    width: var(--heart-width);
+    height: calc(var(--heart-width) * 1.6);
+    background: var(--color-heart);
+    border-radius: var(--heart-width) var(--heart-width) 0 0;
+    transform-origin: 0 100%;
+}
+
+.heart:before {
+    left: var(--heart-width);
+    transform: rotate(-45deg);
+}
+
+.heart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+    background: var(--color-heart-alt);
+}
+
+.close .heart {
+    opacity: 0;
+    animation: none;
+}
+
+.open .heart {
+    opacity: 1;
+}
+
+.a1 {
+    left: 25%;
+    transform: scale(0.7);
+    animation: slideUp 5s linear 1, sideSway 2.5s ease-in-out 4 alternate;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+}
+
+.a2 {
+    left: 60%;
+    transform: scale(1.0);
+    animation: slideUp 6s linear 1, sideSway 3s ease-in-out 3 alternate;
+    animation-fill-mode: forwards;
+    animation-delay: 1.2s;
+}
+
+.a3 {
+    left: 15%;
+    transform: scale(0.8);
+    animation: slideUp 7s linear 1, sideSway 2s ease-in-out 5 alternate;
+    animation-fill-mode: forwards;
+    animation-delay: 1.4s;
+}
+
+@keyframes slideUp { 
+    0% { 
+        top: 0;
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% { 
+        top: -400px;
+        opacity: 0;
+    }
+}
+
+@keyframes sideSway { 
+    0% { 
+        margin-left: 0px;
+    }
+    100% { 
+        margin-left: 30px;
+    }
+}
+
+/* Pop Animation for Letter */
+@keyframes letterPop {
+    0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1) translateY(-20px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(0) translateY(-100px);
+        opacity: 0;
+    }
+}
+
+.letter-popping {
+    animation: letterPop 0.8s ease-in-out forwards;
+}
+
+/* Mobile Specific Optimizations */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .envelope-wrapper {
+        height: calc(var(--env-height) + 200px);
+    }
+    
+    #envelope {
+        margin-top: 80px;
+    }
+}
+
+@media (max-width: 320px) {
+    :root {
+        --env-width: 250px;
+        --env-height: 160px;
+    }
+}
+
+/* Desktop fallback (optional) */
+@media (min-width: 769px) {
+    :root {
+        --env-width: 320px;
+        --env-height: 200px;
+        --heart-width: 40px;
+    }
+    
+    #envelope:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(255, 182, 193, 0.5);
+    }
+}
+    </style>
 </head>
-
 <body>
-    <div class="letter-container">
-        <div class="letter">
-            <!-- Stempel legalisir akan ditempatkan di sini sebagai background -->
-            <div id="stamp-overlay" class="stamp-overlay">
-                <div class="stamp">
-                    <div class="stamp-inner">
-                        <div class="stamp-text">
-                            <div class="stamp-title">DISETUJUI</div>
-                            <div class="stamp-date" id="stamp-date"></div>
-                        </div>
+    <div class="envelope-wrapper">
+        <div id="envelope" class="close">
+            <div class="front flap"></div>
+            <div class="front pocket"></div>
+            <div class="letter" id="letter">
+                <div class="letter-preview">
+                    <div class="preview-text">open this when you're ready</div>
+                    <div class="swipe-hint">
+                        <div class="arrow-up">↑</div>
+                        <span>Swipe up</span>
                     </div>
                 </div>
             </div>
-
-            <div class="letter-content">
-                <h1>Surat Khusus Buat Kamu</h1>
-
-                <div class="letter-header">
-                    Bogor, <span id="current-date"></span>
-                </div>
-
-                <div class="letter-body">
-                    <p>Untuk kamu yang tanpa sadar telah jadi bagian penting dalam hidupku,</p>
-
-                    <p>Awalnya semua terasa biasa. Kita bertemu tanpa sengaja ntah sudah takdir atau bagaimana. Waktu
-                        itu kita saling sapa, ngobrol ringan, dan kadang ketawa karena hal-hal receh. Tapi makin sering
-                        berinteraksi & berkomunikasi, makin aku sadar... kamu berbeda, kamu berbeda dari yang lain. Ada
-                        hal yang gabisa diungkapin pakai kata-kata, tiap kali ngobrol sama kamu, ada rasa nyaman yang
-                        sulit dijelaskan. Lama-lama, aku mulai nunggu-nunggu kabar dari kamu, mulai terbiasa dengan
-                        kehadiranmu yang jadi candu baik dalam hariku.</p>
-
-                    <p>Ingat ga, waktu kita pertama kali ngobrol panjang sampai soal masalah masing-masing? Dari yang
-                        awalnya cuma basa-basi, tiba-tiba jadi obrolan yang dalam, seolah dunia mengizinkan waktu
-                        berhenti sejenak buat kita. Rasanya ringan tapi bermakna. Sejak itu, hari-hariku jadi kurang
-                        lengkap kalau gak dengar suara kamu, atau sekadar tau kabar kamu.</p>
-
-                    <p>Jujur, aku pernah ada di titik di mana aku pikir aku ga akan bisa percaya lagi sama seseorang.
-                        Terlalu banyak luka yang bikin aku tarik diri. Tapi kamu datang tanpa paksaan, tanpa janji yang
-                        berlebihan, tanpa pura-pura jadi orang lain. Kamu hadir apa adanya. Aku merasa dilihat, didengar, dan dimengerti. Tanpa banyak kata, kamu punya
-                        cara sendiri buat nenangin aku. Waktu aku cape, kamu jadi rumah. Waktu aku bingung, kamu jadi
-                        arah. Dan mungkin, justru itu yang
-                        bikin aku jatuh. Perlahan tapi pasti. Kamu nyelip ke dalam hari-hariku tanpa permisi, tapi sejak
-                        itu aku gak pernah pengen kamu pergi lagi.</p>
-
-                    <p>Maka hari ini, aku memberanikan diri buat bicara jujur. Aku ga tau pasti kapan rasa ini mulai
-                        tumbuh, tapi aku tau pasti aku ingin kamu ada di disini. Bukan cuma buat sekarang, tapi buat
-                        seterusnya. Aku ga janji semuanya akan mudah, tapi aku janji akan selalu usaha jadi tempat
-                        pulang yang aman buat kamu. Di saat kamu senang, atau saat kamu sedang ga baik-baik aja. Kita
-                        tumbuh bareng, saling jaga, dan saling pulih sama-sama.</p>
-
-                    <p>Jadi... maukah kamu jadi bagian dari hidup aku? Bukan cuma untuk hari ini, tapi untuk semua hari ke
-                        depan yang masih penuh tanda tanya. Kita hadapin bareng, pelan-pelan tapi pasti. Ga harus
-                        sempurna, cukup saling percaya dan saling jaga.</p>
-
-                    <p>Kalau kamu juga ngerasain hal yang sama… kamu bisa bales ini dengan satu tanda bukti, tanda
-                        tangan di selembar kertas dan scan sidik jari kamu di bawah ini ya. nanti kirim ke aku, biar
-                        resmi hehe. tapi aku serius kok. Ini bukti kalau kamu udah resmi jadi bagian penting dalam
-                        hidup aku asldkasl.</p>
-
-                        </div>
-
-                <div class="signature-area">
-                    <div class="your-signature">
-                        <div class="fingerprint-container">
-                            <div class="fingerprint-image arya-fingerprint">
-                                <i class="material-icons">fingerprint</i>
-                            </div>
-                            <div id="arya-signature" class="signature-image">
-                                <img src="./signature.png" alt="Tanda Tangan Arya" style="width: 200px;" />
-                            </div>
-
-                        </div>
-                        <div class="signature-line">
-                            <div class="signature-caption">Muhammad Arya Ramadhan</div>
-                        </div>
-                    </div>
-
-                    <div id="central-verification" class="central-verification">
-                        <!-- Area tengah antara tanda tangan -->
-                    </div>
-
-                    <div class="her-signature">
-                        <div class="fingerprint-container">
-                            <div class="fingerprint-image tata-fingerprint">
-                                <i class="material-icons">fingerprint</i>
-                            </div>
-                            <div id="sign-button-container">
-                                <button id="sign-button" class="btn">Tanda Tangan Tata</button>
-                            </div>
-                            <div id="tata-signature-container" class="signature-image">
-                                <!-- Tanda tangan Tata akan ditempatkan di sini setelah modal -->
-                            </div>
-                        </div>
-                        <div class="signature-line">
-                            <div class="signature-caption">Nikyta Aulia Luthfi</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button id="printButton" class="btn" style="display: block; margin: 20px auto;">Cetak Surat</button>
-    </div>
-
-    <!-- Modal untuk tanda tangan -->
-    <div id="signature-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3 class="modal-title">Tanda Tangan Tata</h3>
-            <canvas id="signature-pad" width="400" height="200"></canvas>
-            <div class="signature-buttons">
-                <button id="clear-signature" class="btn" style="background-color: #888;">Hapus</button>
-                <button id="save-signature" class="btn">Simpan Tanda Tangan</button>
+            <div class="hearts">
+                <div class="heart a1"></div>
+                <div class="heart a2"></div>
+                <div class="heart a3"></div>
             </div>
         </div>
     </div>
 
-    <!-- Modal untuk sidik jari -->
-    <div id="fingerprint-modal" class="modal">
-        <div class="modal-content fingerprint-modal-content">
-            <h3 class="modal-title">Verifikasi Sidik Jari</h3>
-            <div class="fingerprint-scanner">
-                <div class="scanner-light"></div>
-                <div id="fingerprint-animation">
-                    <i class="material-icons fingerprint-icon">fingerprint</i>
-                </div>
-            </div>
-            <p class="scan-text">Tempelkan jari Anda pada scanner</p>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-
+    <script>
+// Enhanced Love Letter JavaScript - Modified for secret.html redirect
+document.addEventListener('DOMContentLoaded', function() {
+    const envelope = document.getElementById('envelope');
+    const letter = document.getElementById('letter');
+    
+    let isOpen = false;
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+    let tapTimeout = null;
+    
+    // Tap envelope to open/close
+    envelope.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!isDragging) {
+            if (isOpen) {
+                closeEnvelope();
+            } else {
+                openEnvelope();
+            }
+        }
+    });
+    
+    // Prevent accidental taps during swipe
+    envelope.addEventListener('touchstart', function() {
+        clearTimeout(tapTimeout);
+    });
+    
+    // Open envelope function
+    function openEnvelope() {
+        envelope.classList.add('open');
+        envelope.classList.remove('close');
+        isOpen = true;
+        
+        // Add romance effect
+        setTimeout(() => {
+            console.log('Love is in the air! 💕');
+        }, 500);
+    }
+    
+    // Close envelope function
+    function closeEnvelope() {
+        envelope.classList.add('close');
+        envelope.classList.remove('open');
+        isOpen = false;
+    }
+    
+    // Touch events for swipe detection (mobile focused)
+    letter.addEventListener('touchstart', handleTouchStart, { passive: false });
+    letter.addEventListener('touchmove', handleTouchMove, { passive: false });
+    letter.addEventListener('touchend', handleTouchEnd, { passive: false });
+    
+    // Mouse events for desktop fallback
+    letter.addEventListener('mousedown', handleMouseDown);
+    letter.addEventListener('mousemove', handleMouseMove);
+    letter.addEventListener('mouseup', handleMouseUp);
+    letter.addEventListener('mouseleave', handleMouseUp);
+    
+    function handleTouchStart(e) {
+        if (!isOpen) return;
+        e.preventDefault();
+        startY = e.touches[0].clientY;
+        isDragging = false;
+        letter.style.transition = 'none';
+        
+        // Set timeout to detect if this is a tap or swipe
+        tapTimeout = setTimeout(() => {
+            isDragging = false;
+        }, 100);
+    }
+    
+    function handleTouchMove(e) {
+        if (!isOpen) return;
+        e.preventDefault();
+        
+        clearTimeout(tapTimeout);
+        isDragging = true;
+        currentY = e.touches[0].clientY;
+        const deltaY = startY - currentY;
+        
+        if (deltaY > 0) { // Swiping up
+            const progress = Math.min(deltaY / 80, 1);
+            letter.style.transform = `translateY(${-deltaY}px) scale(${1 + progress * 0.05})`;
+            letter.style.opacity = 1 - progress * 0.2;
+        }
+    }
+    
+    function handleTouchEnd(e) {
+        if (!isOpen) return;
+        e.preventDefault();
+        
+        clearTimeout(tapTimeout);
+        letter.style.transition = 'all 0.3s ease';
+        
+        const deltaY = startY - currentY;
+        
+        if (deltaY > 40 && isDragging) { // Swipe up threshold (reduced for mobile)
+            redirectToSecret();
+        } else {
+            // Reset position
+            letter.style.transform = '';
+            letter.style.opacity = '';
+        }
+        
+        // Reset dragging state after animation
+        setTimeout(() => {
+            isDragging = false;
+        }, 300);
+    }
+    
+    // Mouse events (desktop fallback)
+    function handleMouseDown(e) {
+        if (!isOpen) return;
+        e.preventDefault();
+        startY = e.clientY;
+        isDragging = false;
+        letter.style.transition = 'none';
+        document.body.style.userSelect = 'none';
+    }
+    
+    function handleMouseMove(e) {
+        if (!isOpen) return;
+        e.preventDefault();
+        isDragging = true;
+        currentY = e.clientY;
+        const deltaY = startY - currentY;
+        
+        if (deltaY > 0) { // Moving up
+            const progress = Math.min(deltaY / 100, 1);
+            letter.style.transform = `translateY(${-deltaY}px) scale(${1 + progress * 0.1})`;
+            letter.style.opacity = 1 - progress * 0.3;
+        }
+    }
+    
+    function handleMouseUp(e) {
+        if (!isOpen) return;
+        e.preventDefault();
+        letter.style.transition = 'all 0.3s ease';
+        document.body.style.userSelect = '';
+        
+        const deltaY = startY - currentY;
+        
+        if (deltaY > 50 && isDragging) { // Swipe up threshold
+            redirectToSecret();
+        } else {
+            // Reset position
+            letter.style.transform = '';
+            letter.style.opacity = '';
+        }
+        
+        setTimeout(() => {
+            isDragging = false;
+        }, 300);
+    }
+    
+    // Redirect to secret.html with pop animation
+    function redirectToSecret() {
+        // Add pop animation class
+        letter.classList.add('letter-popping');
+        
+        // Create floating hearts effect
+        const hearts = createFloatingHearts();
+        document.body.appendChild(hearts);
+        
+        // Redirect after animation completes
+        setTimeout(() => {
+            window.location.href = 'letter.html';
+        }, 800);
+    }
+    
+    // Create floating hearts effect (optimized for mobile)
+    function createFloatingHearts() {
+        const container = document.createElement('div');
+        container.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        `;
+        
+        // Reduced number of hearts for mobile performance
+        for (let i = 0; i < 8; i++) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💕';
+            heart.style.cssText = `
+                position: absolute;
+                font-size: ${Math.random() * 15 + 15}px;
+                left: ${Math.random() * 100}%;
+                top: 100%;
+                animation: floatUp ${Math.random() * 2 + 2}s ease-out forwards;
+                opacity: 0.8;
+            `;
+            container.appendChild(heart);
+        }
+        
+        // Add CSS animation if not exists
+        if (!document.getElementById('floatUpStyle')) {
+            const style = document.createElement('style');
+            style.id = 'floatUpStyle';
+            style.textContent = `
+                @keyframes floatUp {
+                    0% {
+                        transform: translateY(0) rotate(0deg);
+                        opacity: 0.8;
+                    }
+                    100% {
+                        transform: translateY(-100vh) rotate(180deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        return container;
+    }
+    
+    // Keyboard shortcuts (for desktop)
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && isOpen) {
+            redirectToSecret();
+        }
+        if (e.key === ' ' && !isOpen) {
+            e.preventDefault();
+            openEnvelope();
+        }
+    });
+    
+    // Prevent zoom on double tap (mobile)
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+    
+    // Initialize
+    console.log('Pink & White Love Letter system initialized! 💖');
+    console.log('Instructions:');
+    console.log('1. Tap envelope to open/close');
+    console.log('2. Swipe up on letter to go to secret.html');
+});
+    </script>
 </body>
-
 </html>
